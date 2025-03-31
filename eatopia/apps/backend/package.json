@@ -1,8 +1,8 @@
 {
   "scripts": {
-    "build": "tsc -b",
     "start": "node ./dist/index.js",
-    "dev": "yarn build && yarn start"
+    "build": "tsc -b",
+    "dev": "yarn run build && yarn run start"
   },
   "name": "backend",
   "version": "1.0.0",
