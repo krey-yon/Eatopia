@@ -19,6 +19,7 @@ model User {
   name        String
   email       String
   password    String?
+  address     String
   restaurants Restaurant[]
   orders      Order[]
   deliveries  Order[]      @relation("OrderRider")
