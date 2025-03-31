@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ROLE {
+  USER
+  RIDER
+  RESTAURANT
+}
+
+model User {
+  id          String       @id @default(uuid())
+  role        ROLE
+  name        String
+  email       String
+  password    String?
+  restaurants Restaurant[]
+  orders      Order[]
+  deliveries  Order[]      @relation("OrderRider")
+}
+
+model Restaurant {
+  id      String @id @default(uuid())
+  name    String
+  address String
+  owner   User   @relation(fields: [ownerId], references: [id])
+  ownerId String
+  menus   Menu[]
+}
+
+model Menu {
+  id           String      @id @default(uuid())
+  restaurant   Restaurant  @relation(fields: [restaurantId], references: [id])
+  restaurantId String
+  menuItems    MenuItems[]
+}
+
+model MenuItems {
+  id     String @id @default(uuid())
+  name   String
+  price  Int
+  menuId String
+  menu   Menu   @relation(fields: [menuId], references: [id])
+}
+
+model Order {
+  id         String      @id @default(uuid())
+  status     String
+  user       User        @relation(fields: [userId], references: [id])
+  userId     String
+  rider      User?       @relation(name: "OrderRider", fields: [riderId], references: [id])
+  riderId    String?
+  orderItems OrderItem[]
+}
+
+model OrderItem {
+  id      String @id @default(uuid())
+  order   Order  @relation(fields: [orderId], references: [id])
+  orderId String
+}
