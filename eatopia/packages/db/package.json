@@ -2,12 +2,13 @@
   "name": "@repo/db",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT",
-  "dependencies": {
-    "@prisma/client": "^6.5.0",
-    "prisma": "^6.5.0"
+  "exports": {
+    "./client": "./src/index.ts"
   },
+  "license": "MIT",
   "devDependencies": {
-    "@repo/typescript-config": "*"
+    "@prisma/client": "^6.5.0",
+    "@repo/typescript-config": "*",
+    "prisma": "^6.5.0"
   }
 }
