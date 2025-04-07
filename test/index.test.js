@@ -1,5 +1,4 @@
-import axios from "axios";
-
+const axios = require("axios")
 const BACKEND_URL = "http://localhost:5000/api/v1"
 
 describe("Authentication", () => {
@@ -8,7 +7,7 @@ describe("Authentication", () => {
             name : "chrollo",
             email : "chrollo@gamil.com",
             password : "chrollo",
-            role : "User",
+            role : "USER",
             address : "address"
         })
         expect(res.status).toBe(201);
