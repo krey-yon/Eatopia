@@ -19,16 +19,24 @@ enum ROLE {
   RESTAURANT
 }
 
+model Session {
+  id        String   @id @default(uuid())
+  userId    String
+  expiresAt DateTime
+  user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
+}
+
 model User {
   id          String       @id @default(uuid())
   role        ROLE
   name        String
-  email       String
+  email       String       @unique
   password    String?
   address     String
   restaurants Restaurant[]
   orders      Order[]
   deliveries  Order[]      @relation("OrderRider")
+  sessions    Session[]
 }
 
 model Restaurant {
