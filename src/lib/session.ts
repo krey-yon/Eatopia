@@ -1,4 +1,3 @@
-import {User, Session} from "@prisma/client"
 import {encodeBase32LowerCaseNoPadding, encodeHexLowerCase} from "@oslojs/encoding";
 import { sha256 } from "@oslojs/crypto/sha2";
 import {prisma} from "./db"
@@ -16,7 +15,7 @@ export async function createSession(token : string, userId : string) {
         data : {
             id : sessionId,
             userId,
-            expiresAt : new Date(Date.now() + 1000 * 60 * 60 * 24 * 30);
+            expiresAt : new Date(Date.now() + 1000 * 60 * 60 * 24 * 30)
         }
     })
     return session;
