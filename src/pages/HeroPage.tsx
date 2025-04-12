@@ -1,9 +1,9 @@
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
 import React from "react";
-import {User} from "@prisma/client";
+import { User } from "@prisma/client";
 
-const HeroPage = ({user} : {user : User | null}) => {
+const HeroPage = ({ user }: { user: User | null }) => {
   return (
     <div className="flex flex-col bg-stone-100 h-screen">
       <Navbar user={user} />
