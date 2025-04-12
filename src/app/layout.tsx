@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 const FascinateInline = Fascinate_Inline({
   variable: "--font-Fascinate-Inline",
   subsets: ["latin"],
-  weight: "400"
-})
+  weight: "400",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
