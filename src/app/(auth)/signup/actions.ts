@@ -6,7 +6,7 @@ import {hash} from "bcrypt"
 import {z} from "zod"
 
 export async function signup(values : z.infer<typeof SignupFormSchema>) {
-    console.log(values);
+  //  console.log(values);
     const {password,name,email,role,address} = values
 
     try {
