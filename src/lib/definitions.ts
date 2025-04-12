@@ -38,3 +38,16 @@ export const SigninFormSchema = z.object({
     })
     .trim(),
 });
+
+export const RestaurantFormSchema = z.object({
+  name: z
+    .string()
+    .min(2, { message: "Restaurant name must be at least 2 characters long." })
+    .max(100, { message: "Restaurant name cannot exceed 100 characters." })
+    .trim(),
+  address: z
+    .string()
+    .min(10, { message: "Address must be at least 10 characters long." })
+    .max(255, { message: "Address cannot exceed 255 characters." })
+    .trim(),
+});
