@@ -1,11 +1,12 @@
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
 import React from "react";
+import {User} from "@prisma/client";
 
-const HeroPage = () => {
+const HeroPage = ({user} : {user : User | null}) => {
   return (
     <div className="flex flex-col bg-stone-100 h-screen">
-      <Navbar />
+      <Navbar user={user} />
       <div className="flex flex-col justify-center items-center text-center h-full px-4 py-8">
         <h1 className="text-gray-900 font-extrabold text-5xl md:text-6xl lg:text-8xl mb-2 md:mb-4 FascinateInline">
           Delicious <br className="md:block" /> Meals
