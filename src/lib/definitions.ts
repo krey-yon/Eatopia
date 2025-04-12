@@ -25,19 +25,4 @@ export const SigninFormSchema = z.object({
         message: 'Contain at least one special character.'}).trim(),
 })
 
-export type FormState =
-    | {
-    errors: {
-        name?: string[];
-        email?: string[];
-        password?: string[];
-        address?: string[];
-        role?: string[];
-    };
-    message?: undefined;
-}
-    | {
-    message: string;
-    errors?: undefined;
-};
 

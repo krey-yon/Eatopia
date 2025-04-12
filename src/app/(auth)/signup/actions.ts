@@ -1,29 +1,13 @@
 "use server"
 
 import {prisma} from "../../../lib/db"
-import {ROLE, FormState,SignupFormSchema} from "../../../lib/definitions"
+import {SignupFormSchema} from "../../../lib/definitions"
 import {hash} from "bcrypt"
+import {z} from "zod"
 
-export async function signup(state: FormState, formData: FormData): Promise<FormState> {
-    const email = formData.get("email")?.toString();
-    const password = formData.get("password")?.toString();
-    const name = formData.get("name")?.toString();
-    const address = formData.get("address")?.toString();
-    const role = formData.get("role")?.toString() as ROLE;
-
-    const validateFields = SignupFormSchema.safeParse({
-        name,
-        email,
-        password,
-        address,
-        role,
-    });
-
-    if (!validateFields.success) {
-        return {
-            errors: validateFields.error.flatten().fieldErrors,
-        };
-    }
+export async function signup(values : z.infer<typeof SignupFormSchema>) {
+    console.log(values);
+    const {password,name,email,role,address} = values
 
     try {
         const existingUser = await prisma.user.findFirst({ where: { email } });
