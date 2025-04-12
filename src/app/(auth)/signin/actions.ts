@@ -1,25 +1,14 @@
 "use server"
 
-import {FormState, SigninFormSchema} from "@/lib/definitions";
+import {SigninFormSchema} from "@/lib/definitions";
 import {prisma} from "@/lib/db";
 import {compare} from "bcrypt"
 import {generateSessionToken, createSession} from "../../../lib/session"
 import {setSessionCookies} from "../../../lib/cookie"
+import {z} from "zod";
 
-export const signin = async (state : FormState, formData : FormData) => {
-    const email = formData.get("email")?.toString();
-    const password = formData.get("password")?.toString();
-
-    const validateFields = SigninFormSchema.safeParse({
-        email,
-        password,
-    });
-
-    if (!validateFields.success) {
-        return {
-            errors: validateFields.error.flatten().fieldErrors,
-        };
-    }
+export const signin = async (values : z.infer<typeof SigninFormSchema>) => {
+   const {email,password} = values
 
     try {
         const existingUser = await prisma.user.findFirst({ where: { email } });
