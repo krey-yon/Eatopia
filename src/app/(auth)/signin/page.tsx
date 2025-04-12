@@ -7,10 +7,10 @@ import {Button} from "@/components/ui/button";
 
 const Page = () => {
 
-    const {control, errors, onFormSubmit, register, reset} = useLogin()
+    const {errors, onFormSubmit, register} = useLogin()
 
-    return <div className={"bg-black h-full flex items-center justify-center"}>
-        <Card className={"text-white border-gray-600"}>
+    return <div className={"h-screen flex items-center justify-center"}>
+        <Card className={"text-white w-[30%] border-gray-600 bg-black"}>
             <CardHeader>
                 <CardTitle className="text-2xl">Login</CardTitle>
                 <CardDescription>

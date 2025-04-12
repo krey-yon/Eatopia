@@ -1,8 +1,10 @@
 "use client"
 import { useState } from 'react';
 import { UtensilsCrossed, Menu, X } from 'lucide-react';
+import UserProfile from "@/components/user-profile";
+import {User} from "@prisma/client";
 
-const Navbar = () => {
+const Navbar = ({user} : {user : User | null}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -32,7 +34,7 @@ const Navbar = () => {
           <li className='hover:text-orange-600 cursor-pointer'>Menu</li>
           <li className='hover:text-orange-600 cursor-pointer'>Contact</li>
         </ul>
-        <button className='bg-orange-600 text-white rounded-md py-1 px-2 hover:bg-orange-700'>Sign Up</button>
+        <UserProfile user={user}/>
       </div>
 
       {isMenuOpen && (
@@ -43,9 +45,7 @@ const Navbar = () => {
             <li className='hover:text-orange-600 cursor-pointer'>Menu</li>
             <li className='hover:text-orange-600 cursor-pointer'>Contact</li>
             <li>
-              <button className='bg-orange-600 text-white rounded-md py-1 px-4 hover:bg-orange-700'>
-                Sign Up
-              </button>
+                <UserProfile user={user}/>
             </li>
           </ul>
         </div>

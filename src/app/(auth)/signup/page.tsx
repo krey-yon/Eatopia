@@ -6,10 +6,10 @@ import {Button} from "@/components/ui/button";
 
 const Page = () => {
 
-    const {control,errors,onFormSubmit,register,reset} = useSignup()
+    const {control,errors,onFormSubmit,register} = useSignup()
 
-    return <div className={"bg-black h-full flex items-center justify-center"}>
-        <Card className={"text-white border-gray-600"}>
+    return <div className={"flex items-center h-screen justify-center"}>
+        <Card className={"text-white border-gray-600 bg-black w-[30%]"}>
             <CardHeader>
                 <CardTitle className="text-2xl">Signup</CardTitle>
                 <CardDescription>
@@ -34,7 +34,6 @@ const Page = () => {
                 </form>
             </CardContent>
         </Card>
-
     </div>
 }
 

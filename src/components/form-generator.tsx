@@ -9,14 +9,14 @@ interface FormGeneratorProps {
     inputType: "select" | "input" | "textarea";
     label?: string;
     placeholder?: string;
-    register: UseFormRegister<any>;
+    register: UseFormRegister<FieldValues>;
     name: string;
     errors: FieldErrors
     lines?: number;
-    control?: Control<any>;
+    control?: Control<FieldValues>;
 }
 
-const FormGenerator = ({control,errors,inputType,label,lines,name,placeholder,register,type} : FormGeneratorProps) => {
+const FormGenerator = ({control,errors,inputType,label,name,placeholder,register,type} : FormGeneratorProps) => {
     switch (inputType) {
         case "input": {
             return <div className={"text-white flex flex-col space-y-1"}>
