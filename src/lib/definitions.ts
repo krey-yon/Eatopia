@@ -51,3 +51,9 @@ export const RestaurantFormSchema = z.object({
     .max(255, { message: "Address cannot exceed 255 characters." })
     .trim(),
 });
+
+export type RestaurantInfoProps = {     id: string  ,   name: string  ,   address: string ,    ownerId: string, imageUrl: string }
+
+export type MenuProps = ({     menuItems: {         name: string   ,      id: string   ,      imageUrl: string   ,      price: number,         menuId: string     }[] } & {     id: string  ,   restaurantId: string })
+
+export type OrderProps = ({     user: {         name: string    ,     address: string     }    , rider: {         name: string  ,       address: string     } | null   ,  orderItems: {         id: string     ,    orderId: string     }[] } & {     id: string  ,   userId: string  ,   restaurantId: string  ,   status: string  ,   riderId: string | null })

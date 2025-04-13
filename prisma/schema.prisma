@@ -40,13 +40,14 @@ model User {
 }
 
 model Restaurant {
-  id      String  @id @default(uuid())
-  name    String
-  address String
-  owner   User    @relation(fields: [ownerId], references: [id])
-  ownerId String
-  menus   Menu[]
-  orders  Order[]
+  id       String  @id @default(uuid())
+  name     String
+  address  String
+  owner    User    @relation(fields: [ownerId], references: [id])
+  imageUrl String?
+  ownerId  String
+  menus    Menu[]
+  orders   Order[]
 }
 
 model Menu {
@@ -57,11 +58,12 @@ model Menu {
 }
 
 model MenuItems {
-  id     String @id @default(uuid())
-  name   String
-  price  Int
-  menuId String
-  menu   Menu   @relation(fields: [menuId], references: [id])
+  id       String @id @default(uuid())
+  name     String
+  price    Int
+  imageUrl String
+  menuId   String
+  menu     Menu   @relation(fields: [menuId], references: [id])
 }
 
 model Order {
