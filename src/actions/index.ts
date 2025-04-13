@@ -78,9 +78,18 @@ export const fetchOrders = async (restaurantId : string) => {
       },
       include : {
         orderItems : true,
-        user : true,
-        rider : true,
-        _count : true
+        user : {
+          select : {
+            name : true,
+            address : true
+          }
+        },
+        rider : {
+          select : {
+            name : true,
+            address : true
+          }
+        }
       }
     })
     return orders;

@@ -13,7 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 
 const CreateRestaurant = () => {
-    const { control, errors, onFormSubmit, register } = useRestaurantForm();
+    const {  errors, onFormSubmit, register } = useRestaurantForm();
   
     return (
       <div className={"flex items-center h-screen justify-center"}>

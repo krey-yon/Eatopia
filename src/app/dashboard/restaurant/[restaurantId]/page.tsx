@@ -1,5 +1,6 @@
 import {dehydrate, HydrationBoundary, QueryClient} from "@tanstack/react-query";
 import {fetchMenus, fetchOrders, fetchRestaurantInfo} from "@/actions";
+import Restaurant from "@/components/restaurant";
 
 const Page = async ({params} : {params : {restaurantId : string}}) => {
     const {restaurantId} = await params
@@ -22,7 +23,7 @@ const Page = async ({params} : {params : {restaurantId : string}}) => {
     })
 
     return <HydrationBoundary state={dehydrate(query)}>
-
+        <Restaurant restaurantId={restaurantId}/>
     </HydrationBoundary>
 }
 
