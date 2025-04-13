@@ -29,7 +29,6 @@ export const CreateRestaurant = async (
         message: "An error occurred while creating restaurant.",
       };
     }
-    // redirect(`/dashboard/restaurant/${restaurant.id}`)
     revalidatePath('/dashboard/restaurant')
   } catch (error) {
     console.log(error);
