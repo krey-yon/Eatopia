@@ -97,7 +97,7 @@ export async function getMenuItems(menuId: string) {
   }
 }
 
-export async function addMenuItems(  name: string , price: number , imageUrl : string,) {
+export async function addMenuItems(  name: string , price: string , imageUrl : string,) {
   try {
     const { user } = await getCurrentSession()
     const ownerId = user?.id
@@ -110,11 +110,13 @@ export async function addMenuItems(  name: string , price: number , imageUrl : s
       }
     })
 
+    if (!menu) return;
+
     await prisma.menuItems.create({
       data:{
         name,
-        price,
-        menuId: menu?.id!,
+        price : parseInt(price),
+        menuId: menu.id!,
         imageUrl
       }
     })

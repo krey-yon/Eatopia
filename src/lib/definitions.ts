@@ -58,7 +58,7 @@ export const MenuItemFormSchema = z.object({
       .min(2, { message: "Restaurant name must be at least 2 characters long." })
       .max(100, { message: "Restaurant name cannot exceed 100 characters." })
       .trim(),
-  price : z.number(),
+  price : z.string(),
   imageUrl : z.string(),
 })
 
