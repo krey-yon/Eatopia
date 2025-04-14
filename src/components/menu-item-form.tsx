@@ -9,53 +9,16 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { addMenuItems } from "@/app/dashboard/restaurant/action"
+import {useForm} from "react-hook-form";
+import {z} from "zod";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {MenuItemFormSchema} from "@/lib/definitions";
+import {useMutationData} from "@/hooks/useMutationData";
 // import { addMenuItem } from "@/lib/menu"
 
 export function MenuItemForm({ menuId }: { menuId: string }) {
-  const router = useRouter()
-  const [loading, setLoading] = useState(false)
-  const [formData, setFormData] = useState({
-    name: "",
-    price: "",
-    imageUrl: "",
-  })
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-
-    try {
-      // await addMenuItem({
-      //   name: formData.name,
-      //   price: Number.parseInt(formData.price),
-      //   imageUrl: formData.imageUrl,
-      //   menuId: menuId,
-      // })
-      await addMenuItems({
-        name: formData.name,
-        price: Number.parseInt(formData.price),
-        imageUrl: formData.imageUrl,
-        menuId: menuId,
-      })
-
-      // Reset form and refresh data
-      setFormData({
-        name: "",
-        price: "",
-        imageUrl: "",
-      })
-      router.refresh()
-    } catch (error) {
-      console.error("Failed to add menu item:", error)
-    } finally {
-      setLoading(false)
-    }
-  }
 
   return (
     <Card>
