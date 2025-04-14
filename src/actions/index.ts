@@ -59,6 +59,7 @@ export const fetchMenus = async (restaurantId : string) => {
     return menus;
   } catch (e) {
     console.log(e);
+    return [];
   }
 }
 

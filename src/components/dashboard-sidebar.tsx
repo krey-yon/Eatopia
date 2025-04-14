@@ -6,22 +6,23 @@ import { ClipboardList, Menu, Store } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import React from "react";
 
-export function DashboardSidebar({ restaurantId = "default" }: { restaurantId?: string }) {
+export function DashboardSidebar({ restaurantId, children }: { restaurantId: string, children : React.ReactNode }) {
   const pathname = usePathname()
 
   const routes = [
     {
-      href: "/dashboard/restaurant",
+      href: `/dashboard/restaurant/${restaurantId}/orders`,
       label: "Orders",
       icon: ClipboardList,
-      active: pathname === "/dashboard/restaurant",
+      active: pathname === `/dashboard/restaurant/${restaurantId}`,
     },
     {
-      href: `/dashboard/restaurant/menu/${restaurantId}`,
+      href: `/dashboard/restaurant/${restaurantId}/menu`,
       label: "Menu",
       icon: Menu,
-      active: pathname?.startsWith("/dashboard/restaurant"),
+      active: pathname  === `/dashboard/restaurant/${restaurantId}/menu`
     },
   ]
 
@@ -48,6 +49,7 @@ export function DashboardSidebar({ restaurantId = "default" }: { restaurantId?: 
           </Button>
         ))}
       </div>
+      {children}
     </div>
   )
 }

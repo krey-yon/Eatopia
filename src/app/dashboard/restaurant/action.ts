@@ -97,14 +97,17 @@ export async function getMenuItems(menuId: string) {
   }
 }
 
-export async function addMenuItems( item : { name: string , price: number , imageUrl : string, menuId: string }) {
-  // Simulate API delay
-  // await new Promise((resolve) => setTimeout(resolve, 1000))
-  const newItem = await prisma.menuItems.create({
-    data:{
-      ...item
-    }
-  })
-  return newItem
-  // return menuItems.filter((item) => item.menuId === menuId)
+export async function addMenuItems(  name: string , price: number , imageUrl : string, menuId: string ) {
+  try {
+    await prisma.menuItems.create({
+      data:{
+        name,
+        price,
+        menuId,
+        imageUrl
+      }
+    })
+  } catch (e) {
+    console.log(e);
+  }
 }
