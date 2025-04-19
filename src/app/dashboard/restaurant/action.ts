@@ -10,7 +10,7 @@ import { revalidatePath } from "next/cache";
 export const CreateRestaurant = async (
   values: z.infer<typeof RestaurantFormSchema>
 ) => {
-  const { name, address } = values;
+  const { name, address, imageUrl, cuisine } = values;
   console.log(name, address)
   const { user } = await getCurrentSession();
   const userId = user?.id;
@@ -21,6 +21,8 @@ export const CreateRestaurant = async (
       data: {
         name,
         address,
+        cuisine,
+        imageUrl,
         ownerId: userId!
       },
     });

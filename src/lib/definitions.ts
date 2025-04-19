@@ -50,6 +50,10 @@ export const RestaurantFormSchema = z.object({
     .min(10, { message: "Address must be at least 10 characters long." })
     .max(255, { message: "Address cannot exceed 255 characters." })
     .trim(),
+  cuisine: z
+    .string(),
+  imageUrl: z
+    .string()
 });
 
 export const MenuItemFormSchema = z.object({

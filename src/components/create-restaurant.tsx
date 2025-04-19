@@ -14,7 +14,6 @@ import { Button } from "@/components/ui/button";
 
 const CreateRestaurant = () => {
     const {  errors, onFormSubmit, register } = useRestaurantForm();
-  
     return (
       <div className={"flex items-center h-screen justify-center"}>
         <Card className={"text-white border-gray-600 bg-black w-[30%]"}>
@@ -43,6 +42,24 @@ const CreateRestaurant = () => {
                 placeholder={"address"}
                 type={"text"}
                 label={"address"}
+              />
+              <FormGenerator
+                inputType={"input"}
+                register={register}
+                name={"cuisine"}
+                errors={errors}
+                placeholder={"cuisine"}
+                type={"text"}
+                label={"cuisine"}
+              />
+              <FormGenerator
+                inputType={"input"}
+                register={register}
+                name={"image_url"}
+                errors={errors}
+                placeholder={"image"}
+                type={"text"}
+                label={"image"}
               />
               <Button className={"bg-white text-black mt-6"}>Submit</Button>
             </form>
