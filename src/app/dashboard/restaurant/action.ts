@@ -1,7 +1,7 @@
 "use server";
 
 import { RestaurantFormSchema } from "@/lib/definitions";
-import { prisma } from "@/lib/db";
+import prisma from "@/lib/db";
 import { z } from "zod";
 import { getCurrentSession } from "@/lib/cookie";
 import { revalidatePath } from "next/cache";
@@ -56,9 +56,10 @@ export async function createMenu(restaurantId: string) {
         restaurantId,
       },
     });
-    return {
-      message: "menu created",
-    };
+    // return {
+    //   message: "menu created",
+    // };
+    revalidatePath("/dashboard/restaurant/" + restaurantId)
   } catch (error) {
     console.log(error);
   }

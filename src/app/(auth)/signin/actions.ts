@@ -1,7 +1,7 @@
 "use server";
 
 import { SigninFormSchema } from "@/lib/definitions";
-import { prisma } from "@/lib/db";
+import prisma from "@/lib/db";
 import { compare } from "bcrypt";
 import { generateSessionToken, createSession } from "../../../lib/session";
 import { setSessionCookies } from "../../../lib/cookie";

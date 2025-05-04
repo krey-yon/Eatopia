@@ -3,7 +3,7 @@
 import { getCurrentSession, deleteSession } from "@/lib/cookie";
 import { invalidateSessions } from "@/lib/session";
 import { redirect } from "next/navigation";
-import { prisma } from "@/lib/db";
+import prisma from "@/lib/db";
 
 export const logoutActions = async () => {
   const { session } = await getCurrentSession();

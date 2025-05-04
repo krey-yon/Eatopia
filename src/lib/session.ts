@@ -3,7 +3,7 @@ import {
   encodeHexLowerCase,
 } from "@oslojs/encoding";
 import { sha256 } from "@oslojs/crypto/sha2";
-import { prisma } from "./db";
+import prisma from "./db";
 
 export async function generateSessionToken() {
   const bytes = new Uint8Array(20);

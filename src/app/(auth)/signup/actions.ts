@@ -1,6 +1,6 @@
 "use server";
 
-import { prisma } from "../../../lib/db";
+import prisma from "../../../lib/db";
 import { SignupFormSchema } from "../../../lib/definitions";
 import { hash } from "bcrypt";
 import { z } from "zod";

@@ -4,8 +4,11 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
-import Restaurant from "@/components/restaurant";
 import { CreateMenuModal } from "@/components/create-menu-modal";
+import { MenuItemForm } from "@/components/menu-item-form"
+import { MenuItemsList } from "@/components/menu-items-list"
+import { Separator } from "@/components/ui/separator"
+// import { Restaurant } from "@/components/restaurant";
 
 const Page = async ({ params }: { params: { restaurantId: string } }) => {
   const { restaurantId } = await params;
@@ -22,7 +25,11 @@ const Page = async ({ params }: { params: { restaurantId: string } }) => {
 
   return (
     <HydrationBoundary state={dehydrate(query)}>
-      <Restaurant restaurantId={restaurantId}/>
+      {/* <Restaurant restaurantId={restaurantId}/> */}
+      <div className="grid gap-8 md:grid-cols-2">
+      <MenuItemForm menuId={menus[0]?.id} />
+      <MenuItemsList restaurantId={restaurantId} />
+    </div>
     </HydrationBoundary>
   );
 };

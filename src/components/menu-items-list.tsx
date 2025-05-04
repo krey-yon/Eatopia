@@ -34,9 +34,12 @@ export function MenuItemsList({ restaurantId }: { restaurantId: string }) {
     <div>
       {menus.length ? (
         <Card>
-          <CardHeader>
+          <CardHeader className="flex justify-between">
+            <div>
+              
             <CardTitle>Menu Items</CardTitle>
             <CardDescription>Your current menu offerings</CardDescription>
+            </div>
             <MenuItemForm menuId={menus[0].id} />
           </CardHeader>
           <CardContent>
@@ -46,7 +49,7 @@ export function MenuItemsList({ restaurantId }: { restaurantId: string }) {
                 className="flex items-center gap-4 rounded-lg border p-3"
               >
                 <div className="relative h-16 w-16 overflow-hidden rounded-md">
-                  {/*<Image src={item.imageUrl || "/placeholder.svg"} alt={item.name} fill className="object-cover"/>*/}
+                  <Image src={item.imageUrl || "/placeholder.svg"} alt={item.name} fill className="object-cover"/>
                 </div>
                 <div className="flex-1">
                   <h3 className="font-medium">{item.name}</h3>

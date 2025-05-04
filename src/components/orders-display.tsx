@@ -11,39 +11,78 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { subscribeToOrders, markOrderAsReady } from "@/lib/order";
+// import { subscribeToOrders, markOrderAsReady } from "@/lib/order";
+import { checkForNewOrder, markOrderAsReady } from "@/actions/order";
+
+type OrderItem = {
+  id: string;
+  name: string;
+  orderId: string;
+  price: number;
+}
 
 type Order = {
+  orderItems: OrderItem[];
+  restaurantId: string;
   id: string;
-  items: {
-    name: string;
-    quantity: number;
-  }[];
-  status: "pending" | "ready";
-  timestamp: string;
-};
+  status: string;
+  userId: string;
+  riderId: string | null;
+}
 
 export function OrdersDisplay({ restaurantId }: { restaurantId: string }) {
   const [orders, setOrders] = useState<Order[]>([]);
+  const [orderStatus, setOrderStatus] = useState("pending")
+
+  function getFormattedTimestamp(): string {
+    const now = new Date();
+    return now.toLocaleTimeString('en-US', { hour12: true });
+  }
+
+  const orderTimeStamp = getFormattedTimestamp()
+
+  // useEffect(() => {
+  //   async function checkOrderStatus(){
+  //     const orderStatus = await checkForNewOrder(restaurantId)
+  //     setIsUpForCooking(orderStatus!)
+  //   }
+  // }, [restaurantId])
+  
+  function getOrdersWithPlacedStatus(orders: Order[]) {
+    return orders.filter(order => 
+      order.status.trim().toLowerCase() === "order placed".toLowerCase()
+    );
+  }
 
   useEffect(() => {
-    // Subscribe to Redis pub/sub channel for orders
-    const unsubscribe = subscribeToOrders(restaurantId, (newOrder) => {
-      setOrders((prevOrders) => [...prevOrders, newOrder]);
-    });
+    async function fetchOrders(){
+      const order = await checkForNewOrder(restaurantId)
+      
+      if(order && Array.isArray(order)){
+        const filteredOrders = getOrdersWithPlacedStatus(order)
+        setOrders(filteredOrders)
+        console.log(filteredOrders)
+      }
+      console.log(orderStatus)
+      console.log(order)
+    }
+    fetchOrders()
+  }, [restaurantId, orderStatus])
+  
+  // useEffect(() => {
+  //   // Subscribe to Redis pub/sub channel for orders
+  //   const unsubscribe = subscribeToOrders(restaurantId, (newOrder) => {
+  //     setOrders((prevOrders) => [...prevOrders, newOrder]);
+  //   });
 
-    return () => {
-      unsubscribe();
-    };
-  }, [restaurantId]);
+  //   return () => {
+  //     unsubscribe();
+  //   };
+  // }, [restaurantId]);
 
   const handleMarkAsReady = async (orderId: string) => {
-    await markOrderAsReady(orderId);
-    setOrders((prevOrders) =>
-      prevOrders.map((order) =>
-        order.id === orderId ? { ...order, status: "ready" } : order,
-      ),
-    );
+    await markOrderAsReady(orderId)
+    setOrderStatus("Completed")
   };
 
   return (
@@ -63,40 +102,40 @@ export function OrdersDisplay({ restaurantId }: { restaurantId: string }) {
         </Card>
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {orders.map((order) => (
+          {orders?.map((order) => (
             <Card
-              key={order.id}
+              key={order.orderItems[0].orderId}
               className={
                 order.status === "ready" ? "border-green-200 bg-green-50" : ""
               }
             >
               <CardHeader className="pb-2">
                 <div className="flex items-center justify-between">
-                  <CardTitle>Order #{order.id.slice(0, 8)}</CardTitle>
-                  <Badge
+                  <CardTitle>Order #{order.orderItems[0].orderId.slice(0, 8)}</CardTitle>
+                  {/* <Badge
                     variant={order.status === "ready" ? "default" : "secondary"}
                   >
                     {order.status}
-                  </Badge>
+                  </Badge> */}
                 </div>
                 <CardDescription>
-                  {new Date(order.timestamp).toLocaleTimeString()}
+                  {orderTimeStamp}
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-1">
-                  {order.items.map((item, index) => (
+                  {order.orderItems.map((item, index) => (
                     <li key={index} className="flex justify-between text-sm">
                       <span>{item.name}</span>
                       <span className="text-muted-foreground">
-                        x{item.quantity}
+                        x 1
                       </span>
                     </li>
                   ))}
                 </ul>
               </CardContent>
               <CardFooter>
-                {order.status === "pending" ? (
+                {orderStatus == "pending" ? (
                   <Button
                     className="w-full"
                     onClick={() => handleMarkAsReady(order.id)}

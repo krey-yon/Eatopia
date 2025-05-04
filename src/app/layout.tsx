@@ -34,6 +34,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${FascinateInline.variable} antialiased`}
       >
+        
         <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
     </html>

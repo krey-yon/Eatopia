@@ -67,9 +67,10 @@ export const MenuItemFormSchema = z.object({
 export type RestaurantInfoProps = {
   id: string;
   name: string;
+  cuisine: string;
   address: string;
   ownerId: string;
-  imageUrl: string;
+  imageUrl: string | null;
 };
 
 export type MenuProps = {
@@ -93,3 +94,11 @@ export type OrderProps = {
   status: string;
   riderId: string | null;
 };
+
+export type MenuItemsType = {
+    id: string;
+    name: string;
+    imageUrl: string;
+    price: number;
+    menuId: string;
+}

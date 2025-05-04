@@ -1,6 +1,7 @@
 "use client";
 
 import type React from "react";
+import { Plus } from 'lucide-react';
 import {
   Card,
   CardContent,
@@ -25,13 +26,12 @@ export function MenuItemForm({ menuId }: { menuId: string }) {
 
   return (
     <Dialog>
-      <DialogTrigger>Create</DialogTrigger>
+      <DialogTrigger className="flex flex-col align-middle" > <Plus/> </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Are you absolutely sure?</DialogTitle>
+          <DialogTitle>Add menu item</DialogTitle>
           <DialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
+            add
           </DialogDescription>
         </DialogHeader>
         <Card>
