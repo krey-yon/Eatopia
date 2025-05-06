@@ -29,9 +29,9 @@ export function MenuItemForm({ menuId }: { menuId: string }) {
       <DialogTrigger className="flex flex-col align-middle" > <Plus/> </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add menu item</DialogTitle>
+          <DialogTitle>{" "}</DialogTitle>
           <DialogDescription>
-            add
+            {" "}
           </DialogDescription>
         </DialogHeader>
         <Card>

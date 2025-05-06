@@ -5,6 +5,7 @@ import prisma from "@/lib/db";
 interface OrderData {
   userId: string;
   restaurantId: string;
+  address: string;
   itemDetails: {
     name: string;
     price: number;
@@ -24,6 +25,7 @@ export const addOrder = async (orderData: OrderData) => {
             price: orderData.itemDetails.price,
           },
         },
+        address: orderData.address
       },
       include: {
         orderItems: true,
@@ -75,3 +77,20 @@ export const markOrderAsReady = async (orderId: string) => {
     console.log(error);
   }
 };
+
+
+export const findOrderWithUserId = async (userId: string) => {
+  try {
+    const orders = await prisma.order.findMany({
+      where:{
+        userId,
+      },
+      include:{
+        orderItems: true
+      }
+    })
+    return orders;
+  } catch (error) {
+    console.log(error)
+  }
+}

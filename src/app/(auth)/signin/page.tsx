@@ -14,11 +14,11 @@ const Page = () => {
   const { errors, onFormSubmit, register } = useLogin();
 
   return (
-    <div className={"h-screen flex items-center justify-center"}>
-      <Card className={"text-white w-[30%] border-gray-600 bg-black"}>
+    <div className={"h-screen flex items-center justify-center bg-gray-100"}>
+      <Card className={"text-white w-[30%] border-gray-600 "}>
         <CardHeader>
-          <CardTitle className="text-2xl">Login</CardTitle>
-          <CardDescription>
+          <CardTitle className="text-2xl text-black">Login</CardTitle>
+          <CardDescription className="text-black">
             Enter your email and password below to login to your account
           </CardDescription>
         </CardHeader>

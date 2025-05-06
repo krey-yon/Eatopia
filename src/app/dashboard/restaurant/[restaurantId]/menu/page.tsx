@@ -27,7 +27,7 @@ const Page = async ({ params }: { params: { restaurantId: string } }) => {
     <HydrationBoundary state={dehydrate(query)}>
       {/* <Restaurant restaurantId={restaurantId}/> */}
       <div className="grid gap-8 md:grid-cols-2">
-      <MenuItemForm menuId={menus[0]?.id} />
+      {/* <MenuItemForm menuId={menus[0]?.id} /> */}
       <MenuItemsList restaurantId={restaurantId} />
     </div>
     </HydrationBoundary>

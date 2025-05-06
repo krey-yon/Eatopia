@@ -10,10 +10,10 @@ const Dashboard = async () => {
 
   switch (user?.role) {
     case "USER":
-      redirect("/dashboard/user/");
+      redirect("/dashboard/user");
       break;
     case "RIDER":
-      redirect("/dashboard/rider");
+      redirect("/dashboard/delivery-dashboard");
       break;
     case "RESTAURANT":
       redirect("/dashboard/restaurant");

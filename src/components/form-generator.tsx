@@ -45,14 +45,14 @@ const FormGenerator = ({
           <Label
             htmlFor={name}
             className={
-              "text-gray-300 hover:text-white select-none cursor-pointer flex items-center space-x-2 transition duration-150"
+              "text-gray-900 select-none cursor-pointer flex items-center space-x-2 transition duration-150"
             }
           >
             {label}
           </Label>
           <Input
             id={name}
-            className={"rounded-md border-gray-600 text-white "}
+            className={"rounded-md border-gray-600 text-black "}
             type={type}
             placeholder={placeholder}
             {...register(name)}

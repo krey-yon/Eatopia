@@ -3,6 +3,7 @@ import { useState } from "react";
 import { UtensilsCrossed, Menu, X } from "lucide-react";
 import UserProfile from "@/components/user-profile";
 import { User } from "@prisma/client";
+import Link from "next/link";
 
 const Navbar = ({ user }: { user: User | null }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -32,7 +33,7 @@ const Navbar = ({ user }: { user: User | null }) => {
           <li className="hover:text-orange-600 cursor-pointer">Home</li>
           <li className="hover:text-orange-600 cursor-pointer">About</li>
           <li className="hover:text-orange-600 cursor-pointer">Menu</li>
-          <li className="hover:text-orange-600 cursor-pointer">Contact</li>
+          <li className="hover:text-orange-600 cursor-pointer"><Link href="/dashboard">Dashboard</Link></li>
         </ul>
         <UserProfile user={user} />
       </div>

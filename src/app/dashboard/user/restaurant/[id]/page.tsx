@@ -93,12 +93,13 @@ export default function RestaurantPage({ params }: { params: Promise<{ id: strin
     const orderData = {
       userId: restaurant.ownerId,
       restaurantId: restaurant.id,
+      address,
       itemDetails: {
         name: selectedMenuItems[0].name,
         price: selectedMenuItems[0].price,
       }
     }
-
+    console.log(orderData)
     const order = await addOrder(orderData)
 
     console.log(order)
@@ -133,6 +134,13 @@ export default function RestaurantPage({ params }: { params: Promise<{ id: strin
   //   const updatedOrders = orders.map((order: any) => (order.id === id ? { ...order, status } : order))
   //   localStorage.setItem("orders", JSON.stringify(updatedOrders))
   // }
+
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    }).format(price / 100);
+  };
 
   return (
     <div className="container mx-auto py-8">
