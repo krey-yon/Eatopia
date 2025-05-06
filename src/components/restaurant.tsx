@@ -23,6 +23,8 @@ export function Restaurant({ restaurant }: RestaurantProps) {
       <div className="relative h-48 w-full">
         <Image
           src={restaurant?.imageUrl || "/placeholder.svg"}
+          
+          // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
           alt={restaurant?.name!}
           fill
           className="object-cover"

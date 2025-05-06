@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/dialog";
 
 export function MenuItemForm({ menuId }: { menuId: string }) {
+  console.log(menuId)
   const { errors, onFormSubmit, register, isPending } = useAddMenuItem();
 
   return (

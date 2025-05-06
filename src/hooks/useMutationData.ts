@@ -9,9 +9,10 @@ import {
 
 export const useMutationData = (
   mutationKey: MutationKey,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   mutationFn: MutationFunction<any, any>,
   queryKey?: string,
-  onSuccess?: () => void,
+  onSuccess?: () => void
 ) => {
   const client = useQueryClient();
 
@@ -19,6 +20,7 @@ export const useMutationData = (
     mutationKey,
     mutationFn,
     onSuccess(data) {
+      console.log(data);
       if (onSuccess) {
         onSuccess();
       }

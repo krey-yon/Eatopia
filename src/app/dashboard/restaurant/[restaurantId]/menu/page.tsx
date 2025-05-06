@@ -5,12 +5,15 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import { CreateMenuModal } from "@/components/create-menu-modal";
-import { MenuItemForm } from "@/components/menu-item-form";
+// import { MenuItemForm } from "@/components/menu-item-form";
 import { MenuItemsList } from "@/components/menu-items-list";
-import { Separator } from "@/components/ui/separator";
+// import { Separator } from "@/components/ui/separator";
 // import { Restaurant } from "@/components/restaurant";
 
-const Page = async ({ params }: { params: { restaurantId: string } }) => {
+type Params = Promise<{ restaurantId: string }>
+
+const Page = async ({ params }: { params: Params }) => {
+
   const { restaurantId } = await params;
 
   const query = new QueryClient();

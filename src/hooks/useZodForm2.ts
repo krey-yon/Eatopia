@@ -6,7 +6,8 @@ import { useForm } from "react-hook-form";
 const useZodForm2 = (
   schema: ZodSchema,
   mutation: UseMutateFunction,
-  defaultValues?: any,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  defaultValues?: any
 ) => {
   const {
     register,

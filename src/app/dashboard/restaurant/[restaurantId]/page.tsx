@@ -1,6 +1,8 @@
 import { redirect } from "next/navigation";
 
-const page = async ({ params }: { params: { restaurantId: string } }) => {
+type Params = Promise<{ restaurantId: string }>
+
+const page = async ({ params }: { params: Params }) => {
   const { restaurantId } = await params;
   return redirect(`/dashboard/restaurant/${restaurantId}/orders`);
 };

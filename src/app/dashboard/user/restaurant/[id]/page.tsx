@@ -25,14 +25,16 @@ export default function RestaurantPage({
   // const [trackModalOpen, setTrackModalOpen] = useState(false)
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [orderPlaced, setOrderPlaced] = useState(false);
-  const [orderStatus, setOrderStatus] = useState("placed");
+  // const [orderStatus, setOrderStatus] = useState("placed");
   const [orderId, setOrderId] = useState<string | null>(null);
   const [restaurant, setRestaurant] = useState<RestaurantInfoProps | null>(
-    null,
+    null
   );
   const [restaurantMenu, setRestaurantMenu] = useState<MenuItemsType[] | null>(
-    null,
+    null
   );
+
+  console.log(orderId, orderPlaced);
 
   const { id } = use(params);
   useEffect(() => {
@@ -85,7 +87,8 @@ export default function RestaurantPage({
 
   const handlePlaceOrder = async (address: string) => {
     const selectedMenuItems = selectedItems.map(
-      (id) => restaurantMenu?.find((item) => item.id === id)!,
+      // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+      (id) => restaurantMenu?.find((item) => item.id === id)!
     );
     // const newOrderId = addOrder({
     //   restaurantId: restaurant.id,
@@ -110,8 +113,11 @@ export default function RestaurantPage({
     const order = await addOrder(orderData);
 
     console.log(order);
+
+    // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
     console.log(order?.id);
 
+    // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
     setOrderId(order?.id!);
     setOrderPlaced(true);
     setOrderModalOpen(false);
@@ -142,12 +148,12 @@ export default function RestaurantPage({
   //   localStorage.setItem("orders", JSON.stringify(updatedOrders))
   // }
 
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-    }).format(price / 100);
-  };
+  // const formatPrice = (price: number) => {
+  //   return new Intl.NumberFormat("en-US", {
+  //     style: "currency",
+  //     currency: "USD",
+  //   }).format(price / 100);
+  // };
 
   return (
     <div className="container mx-auto py-8">
@@ -237,7 +243,8 @@ export default function RestaurantPage({
         open={orderModalOpen}
         onOpenChange={setOrderModalOpen}
         selectedItems={selectedItems.map(
-          (id) => restaurantMenu?.find((item) => item.id === id)!,
+          // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+          (id) => restaurantMenu?.find((item) => item.id === id)!
         )}
         onPlaceOrder={handlePlaceOrder}
       />

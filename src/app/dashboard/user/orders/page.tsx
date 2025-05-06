@@ -57,6 +57,8 @@ export default function OrdersPage() {
   } | null>(null);
   const [activeTab, setActiveTab] = useState("active");
 
+  console.log(activeTab)
+
   useEffect(() => {
     const fetchUserDetails = async () => {
       const { user } = await getCurrentSession();
@@ -66,8 +68,11 @@ export default function OrdersPage() {
     fetchUserDetails();
   }, [isRotating]);
 
+
   useEffect(() => {
     const fetchOrdersData = async () => {
+      
+      // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
       const orderData = await findOrderWithUserId(user?.id!);
       console.log(isRotating);
       if (orderData && Array.isArray(orderData)) {
@@ -75,7 +80,8 @@ export default function OrdersPage() {
       }
     };
     fetchOrdersData();
-  }, [isRotating]);
+    
+  }, [isRotating, user?.id!]);
 
   console.log(user);
   console.log(orders);
@@ -115,7 +121,7 @@ export default function OrdersPage() {
               <ShoppingBag className="mx-auto h-12 w-12 text-muted-foreground opacity-50" />
               <h3 className="mt-4 text-lg font-medium">No active orders</h3>
               <p className="mt-2 text-sm text-muted-foreground">
-                You don't have any active orders at the moment.
+                You don&apos;t have any active orders at the moment.
               </p>
               <Link href="/">
                 <Button className="mt-4">Browse Restaurants</Button>
@@ -141,7 +147,7 @@ export default function OrdersPage() {
               <ShoppingBag className="mx-auto h-12 w-12 text-muted-foreground opacity-50" />
               <h3 className="mt-4 text-lg font-medium">No completed orders</h3>
               <p className="mt-2 text-sm text-muted-foreground">
-                You don't have any completed orders yet.
+                You don&apos;t have any completed orders yet.
               </p>
               <Link href="/">
                 <Button className="mt-4">Browse Restaurants</Button>

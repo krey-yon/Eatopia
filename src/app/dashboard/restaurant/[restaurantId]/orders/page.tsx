@@ -1,7 +1,9 @@
 import { OrdersDisplay } from "@/components/orders-display";
 import React from "react";
 
-const page = async ({ params }: { params: { restaurantId: string } }) => {
+type Params = Promise<{ restaurantId: string }>
+
+const page = async ({ params }: { params: Params }) => {
   const { restaurantId } = await params;
   return (
     <div>

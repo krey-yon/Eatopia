@@ -77,8 +77,8 @@ export default function DeliveryDashboard({ riderId }: { riderId: string }) {
   }
 
   const orderToPick = getOrdersWithReadyStatus(orders);
-  const orderOutForDelivery = getOrdersWithOutForDeliveryStatus(orders);
-  const orderDelivered = getOrdersWithDeliveredStatus(orders);
+  const orderOutForDelivery = getOrdersWithOutForDeliveryStatus(riderOrders);
+  const orderDelivered = getOrdersWithDeliveredStatus(riderOrders);
 
   console.log(orders);
 
@@ -112,7 +112,7 @@ export default function DeliveryDashboard({ riderId }: { riderId: string }) {
       }
     }
     fetchRiderOrders();
-  }, []);
+  }, [riderId]);
 
   // Handle picking up an order
   const handlePickup = async (orderId: string) => {
