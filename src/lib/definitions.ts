@@ -96,9 +96,9 @@ export type OrderProps = {
 };
 
 export type MenuItemsType = {
-    id: string;
-    name: string;
-    imageUrl: string;
-    price: number;
-    menuId: string;
-}
+  id: string;
+  name: string;
+  imageUrl: string;
+  price: number;
+  menuId: string;
+};

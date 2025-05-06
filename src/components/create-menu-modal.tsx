@@ -24,7 +24,7 @@ export function CreateMenuModal({ restaurantId }: { restaurantId: string }) {
   const { isPending, mutate } = useMutationData(
     ["create-menu"],
     () => createMenu(restaurantId),
-    "restaurant-menu"
+    "restaurant-menu",
   );
 
   return (

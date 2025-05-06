@@ -8,14 +8,14 @@ export const useSignup = () => {
   const router = useRouter();
 
   const handleSignUp = async (values: z.infer<typeof SignupFormSchema>) => {
-      const result = await signup(values);
-  
-      if (result.message === "User created successfully!") {
-        router.push("/signin");
-      } else {
-        console.error(result.message);
-      }
-    };
+    const result = await signup(values);
+
+    if (result.message === "User created successfully!") {
+      router.push("/signin");
+    } else {
+      console.error(result.message);
+    }
+  };
   const { onFormSubmit, control, reset, register, errors } = useZodForm(
     SignupFormSchema,
     handleSignUp,

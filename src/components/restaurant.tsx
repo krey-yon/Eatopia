@@ -1,20 +1,19 @@
-import Image from "next/image"
-import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Star } from "lucide-react"
+import Image from "next/image";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Star } from "lucide-react";
 // import { restaurantInfo } from "@/actions/restaurant"
 
 interface RestaurantProps {
   restaurant: {
-    id: string
-    name: string
-    cuisine: string
-    imageUrl: string
-  }
+    id: string;
+    name: string;
+    cuisine: string;
+    imageUrl: string;
+  };
 }
 
 export function Restaurant({ restaurant }: RestaurantProps) {
-
   // const restaurant = await restaurantInfo(restaurantId);
   const restaurantRating = (Math.random() * (5.0 - 4.0) + 4.0).toFixed(1);
   const diliveryTime = Math.floor(Math.random() * (50 - 40) + 40) + " Min";
@@ -22,7 +21,12 @@ export function Restaurant({ restaurant }: RestaurantProps) {
   return (
     <Card className="overflow-hidden h-full transition-all hover:shadow-md">
       <div className="relative h-48 w-full">
-        <Image src={restaurant?.imageUrl || "/placeholder.svg"} alt={restaurant?.name!} fill className="object-cover" />
+        <Image
+          src={restaurant?.imageUrl || "/placeholder.svg"}
+          alt={restaurant?.name!}
+          fill
+          className="object-cover"
+        />
       </div>
       <CardContent className="p-4">
         <div className="flex justify-between items-start">
@@ -40,5 +44,5 @@ export function Restaurant({ restaurant }: RestaurantProps) {
         {diliveryTime} delivery time
       </CardFooter>
     </Card>
-  )
+  );
 }

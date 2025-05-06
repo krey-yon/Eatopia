@@ -33,7 +33,9 @@ const Navbar = ({ user }: { user: User | null }) => {
           <li className="hover:text-orange-600 cursor-pointer">Home</li>
           <li className="hover:text-orange-600 cursor-pointer">About</li>
           <li className="hover:text-orange-600 cursor-pointer">Menu</li>
-          <li className="hover:text-orange-600 cursor-pointer"><Link href="/dashboard">Dashboard</Link></li>
+          <li className="hover:text-orange-600 cursor-pointer">
+            <Link href="/dashboard">Dashboard</Link>
+          </li>
         </ul>
         <UserProfile user={user} />
       </div>

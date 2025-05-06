@@ -1,7 +1,7 @@
 "use client";
 
 import type React from "react";
-import { Plus } from 'lucide-react';
+import { Plus } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -26,13 +26,14 @@ export function MenuItemForm({ menuId }: { menuId: string }) {
 
   return (
     <Dialog>
-      <DialogTrigger className="flex flex-col align-middle" > <Plus/> </DialogTrigger>
+      <DialogTrigger className="flex flex-col align-middle">
+        {" "}
+        <Plus />{" "}
+      </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{" "}</DialogTitle>
-          <DialogDescription>
-            {" "}
-          </DialogDescription>
+          <DialogTitle> </DialogTitle>
+          <DialogDescription> </DialogDescription>
         </DialogHeader>
         <Card>
           <CardHeader>

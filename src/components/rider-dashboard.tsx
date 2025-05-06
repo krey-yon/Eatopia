@@ -57,7 +57,7 @@ export default function DeliveryDashboard({ riderId }: { riderId: string }) {
   function getOrdersWithReadyStatus(orders: Order[]) {
     return orders.filter(
       (order) =>
-        order.status.trim().toLowerCase() === "order ready".toLowerCase()
+        order.status.trim().toLowerCase() === "order ready".toLowerCase(),
     );
   }
 
@@ -65,14 +65,14 @@ export default function DeliveryDashboard({ riderId }: { riderId: string }) {
     return riderOrders.filter(
       (order) =>
         order.status.trim().toLowerCase() ===
-        "order out for delivery".toLowerCase()
+        "order out for delivery".toLowerCase(),
     );
   }
 
   function getOrdersWithDeliveredStatus(riderOrders: Order[]) {
     return riderOrders.filter(
       (order) =>
-        order.status.trim().toLowerCase() === "order delivered".toLowerCase()
+        order.status.trim().toLowerCase() === "order delivered".toLowerCase(),
     );
   }
 

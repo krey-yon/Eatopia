@@ -59,7 +59,7 @@ export async function createMenu(restaurantId: string) {
     // return {
     //   message: "menu created",
     // };
-    revalidatePath("/dashboard/restaurant/" + restaurantId)
+    revalidatePath("/dashboard/restaurant/" + restaurantId);
   } catch (error) {
     console.log(error);
   }

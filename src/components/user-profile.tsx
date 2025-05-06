@@ -7,16 +7,15 @@ import {
 import { User } from "@prisma/client";
 import { LogOutIcon } from "lucide-react";
 import { logoutActions } from "../actions";
-import { redirect } from 'next/navigation'
+import { redirect } from "next/navigation";
 
 const UserProfile = ({ user }: { user: User | null }) => {
-
   const handleLogIn = () => {
-    redirect('/signin')
-  }
+    redirect("/signin");
+  };
   const handleSignUp = () => {
-    redirect('/signup')
-  }
+    redirect("/signup");
+  };
 
   return user ? (
     <div>
@@ -54,10 +53,16 @@ const UserProfile = ({ user }: { user: User | null }) => {
     </div>
   ) : (
     <div className={"flex gap-x-3"}>
-      <button className="bg-orange-600 text-white rounded-md py-1 px-2 hover:bg-orange-700" onClick={handleLogIn} >
+      <button
+        className="bg-orange-600 text-white rounded-md py-1 px-2 hover:bg-orange-700"
+        onClick={handleLogIn}
+      >
         Log In
       </button>
-      <button className="bg-orange-600 text-white rounded-md py-1 px-2 hover:bg-orange-700" onClick={handleSignUp}>
+      <button
+        className="bg-orange-600 text-white rounded-md py-1 px-2 hover:bg-orange-700"
+        onClick={handleSignUp}
+      >
         Sign Up
       </button>
     </div>

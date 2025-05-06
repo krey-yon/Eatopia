@@ -60,7 +60,7 @@ export default function OrdersPage() {
   useEffect(() => {
     const fetchUserDetails = async () => {
       const { user } = await getCurrentSession();
-      console.log(isRotating)
+      console.log(isRotating);
       setUser(user);
     };
     fetchUserDetails();
@@ -69,7 +69,7 @@ export default function OrdersPage() {
   useEffect(() => {
     const fetchOrdersData = async () => {
       const orderData = await findOrderWithUserId(user?.id!);
-      console.log(isRotating)
+      console.log(isRotating);
       if (orderData && Array.isArray(orderData)) {
         setOrders(orderData);
       }
@@ -81,10 +81,10 @@ export default function OrdersPage() {
   console.log(orders);
 
   const activeOrders = orders.filter(
-    (order) => order.status.toLowerCase() !== "order delivered"
+    (order) => order.status.toLowerCase() !== "order delivered",
   );
   const completedOrders = orders.filter(
-    (order) => order.status.toLowerCase() == "order delivered"
+    (order) => order.status.toLowerCase() == "order delivered",
   );
 
   return (
@@ -124,7 +124,12 @@ export default function OrdersPage() {
           ) : (
             <div className="grid gap-6">
               {activeOrders.map((order) => (
-                <OrderCard key={order.id} order={order} isRotating={isRotating} setIsRotating={setIsRotating} />
+                <OrderCard
+                  key={order.id}
+                  order={order}
+                  isRotating={isRotating}
+                  setIsRotating={setIsRotating}
+                />
               ))}
             </div>
           )}
@@ -145,7 +150,12 @@ export default function OrdersPage() {
           ) : (
             <div className="grid gap-6">
               {completedOrders.map((order) => (
-                <OrderCard key={order.id} order={order} isRotating={isRotating} setIsRotating={setIsRotating} />
+                <OrderCard
+                  key={order.id}
+                  order={order}
+                  isRotating={isRotating}
+                  setIsRotating={setIsRotating}
+                />
               ))}
             </div>
           )}

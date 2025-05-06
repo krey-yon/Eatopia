@@ -19,7 +19,7 @@ type OrderItem = {
   name: string;
   orderId: string;
   price: number;
-}
+};
 
 type Order = {
   orderItems: OrderItem[];
@@ -28,18 +28,18 @@ type Order = {
   status: string;
   userId: string;
   riderId: string | null;
-}
+};
 
 export function OrdersDisplay({ restaurantId }: { restaurantId: string }) {
   const [orders, setOrders] = useState<Order[]>([]);
-  const [orderStatus, setOrderStatus] = useState("pending")
+  const [orderStatus, setOrderStatus] = useState("pending");
 
   function getFormattedTimestamp(): string {
     const now = new Date();
-    return now.toLocaleTimeString('en-US', { hour12: true });
+    return now.toLocaleTimeString("en-US", { hour12: true });
   }
 
-  const orderTimeStamp = getFormattedTimestamp()
+  const orderTimeStamp = getFormattedTimestamp();
 
   // useEffect(() => {
   //   async function checkOrderStatus(){
@@ -47,28 +47,29 @@ export function OrdersDisplay({ restaurantId }: { restaurantId: string }) {
   //     setIsUpForCooking(orderStatus!)
   //   }
   // }, [restaurantId])
-  
+
   function getOrdersWithPlacedStatus(orders: Order[]) {
-    return orders.filter(order => 
-      order.status.trim().toLowerCase() === "order placed".toLowerCase()
+    return orders.filter(
+      (order) =>
+        order.status.trim().toLowerCase() === "order placed".toLowerCase(),
     );
   }
 
   useEffect(() => {
-    async function fetchOrders(){
-      const order = await checkForNewOrder(restaurantId)
-      
-      if(order && Array.isArray(order)){
-        const filteredOrders = getOrdersWithPlacedStatus(order)
-        setOrders(filteredOrders)
-        console.log(filteredOrders)
+    async function fetchOrders() {
+      const order = await checkForNewOrder(restaurantId);
+
+      if (order && Array.isArray(order)) {
+        const filteredOrders = getOrdersWithPlacedStatus(order);
+        setOrders(filteredOrders);
+        console.log(filteredOrders);
       }
-      console.log(orderStatus)
-      console.log(order)
+      console.log(orderStatus);
+      console.log(order);
     }
-    fetchOrders()
-  }, [restaurantId, orderStatus])
-  
+    fetchOrders();
+  }, [restaurantId, orderStatus]);
+
   // useEffect(() => {
   //   // Subscribe to Redis pub/sub channel for orders
   //   const unsubscribe = subscribeToOrders(restaurantId, (newOrder) => {
@@ -81,8 +82,8 @@ export function OrdersDisplay({ restaurantId }: { restaurantId: string }) {
   // }, [restaurantId]);
 
   const handleMarkAsReady = async (orderId: string) => {
-    await markOrderAsReady(orderId)
-    setOrderStatus("Completed")
+    await markOrderAsReady(orderId);
+    setOrderStatus("Completed");
   };
 
   return (
@@ -111,25 +112,23 @@ export function OrdersDisplay({ restaurantId }: { restaurantId: string }) {
             >
               <CardHeader className="pb-2">
                 <div className="flex items-center justify-between">
-                  <CardTitle>Order #{order.orderItems[0].orderId.slice(0, 8)}</CardTitle>
+                  <CardTitle>
+                    Order #{order.orderItems[0].orderId.slice(0, 8)}
+                  </CardTitle>
                   {/* <Badge
                     variant={order.status === "ready" ? "default" : "secondary"}
                   >
                     {order.status}
                   </Badge> */}
                 </div>
-                <CardDescription>
-                  {orderTimeStamp}
-                </CardDescription>
+                <CardDescription>{orderTimeStamp}</CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-1">
                   {order.orderItems.map((item, index) => (
                     <li key={index} className="flex justify-between text-sm">
                       <span>{item.name}</span>
-                      <span className="text-muted-foreground">
-                        x 1
-                      </span>
+                      <span className="text-muted-foreground">x 1</span>
                     </li>
                   ))}
                 </ul>

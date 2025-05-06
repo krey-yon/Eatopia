@@ -1,37 +1,48 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
+import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 
 interface OrderModalProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
   selectedItems: {
-    id: string
-    name: string
-    price: number
-  }[]
-  onPlaceOrder: (address: string) => void
+    id: string;
+    name: string;
+    price: number;
+  }[];
+  onPlaceOrder: (address: string) => void;
 }
 
-export function OrderModal({ open, onOpenChange, selectedItems, onPlaceOrder }: OrderModalProps) {
-  const [address, setAddress] = useState("")
-  const [notes, setNotes] = useState("")
+export function OrderModal({
+  open,
+  onOpenChange,
+  selectedItems,
+  onPlaceOrder,
+}: OrderModalProps) {
+  const [address, setAddress] = useState("");
+  const [notes, setNotes] = useState("");
 
-  const subtotal = selectedItems.reduce((sum, item) => sum + item?.price, 0)
-  const deliveryFee = 2.99
-  const total = subtotal + deliveryFee
+  const subtotal = selectedItems.reduce((sum, item) => sum + item?.price, 0);
+  const deliveryFee = 2.99;
+  const total = subtotal + deliveryFee;
 
   const handleSubmit = () => {
-    onPlaceOrder(address)
-    setAddress("")
-    setNotes("")
-  }
+    onPlaceOrder(address);
+    setAddress("");
+    setNotes("");
+  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -100,5 +111,5 @@ export function OrderModal({ open, onOpenChange, selectedItems, onPlaceOrder }: 
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

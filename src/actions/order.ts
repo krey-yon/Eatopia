@@ -25,7 +25,7 @@ export const addOrder = async (orderData: OrderData) => {
             price: orderData.itemDetails.price,
           },
         },
-        address: orderData.address
+        address: orderData.address,
       },
       include: {
         orderItems: true,
@@ -78,19 +78,18 @@ export const markOrderAsReady = async (orderId: string) => {
   }
 };
 
-
 export const findOrderWithUserId = async (userId: string) => {
   try {
     const orders = await prisma.order.findMany({
-      where:{
+      where: {
         userId,
       },
-      include:{
-        orderItems: true
-      }
-    })
+      include: {
+        orderItems: true,
+      },
+    });
     return orders;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};

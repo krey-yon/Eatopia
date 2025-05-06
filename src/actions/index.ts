@@ -43,7 +43,7 @@ export const fetchMenus = async (restaurantId: string) => {
     const { session } = await getCurrentSession();
 
     if (session === null) {
-      return []
+      return [];
     }
 
     const menus = await prisma.menu.findMany({
