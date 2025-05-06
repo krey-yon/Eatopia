@@ -21,7 +21,7 @@ export const checkForNewOrderToPickup = async () => {
   }
 };
 
-export const markOrderAsOutForDelivery = async (orderId: string) => {
+export const markOrderAsOutForDelivery = async (orderId: string, riderId: string) => {
     try {
       await prisma.order.update({
         where: {
@@ -29,6 +29,7 @@ export const markOrderAsOutForDelivery = async (orderId: string) => {
         },
         data: {
           status: "order out for delivery",
+          riderId,
         },
       });
     } catch (error) {
@@ -52,3 +53,24 @@ export const markOrderAsOutForDelivery = async (orderId: string) => {
     }
   };
   
+  export const riderAcceptedOrders = async (riderId: string) => {
+    try {
+      const order = await prisma.order.findMany({
+        where:{
+          riderId,
+        },
+        include: {
+          orderItems: true,
+        },
+      });
+      // const isUpForPickup = order.some((o) => o.status === "Order Ready");
+      if (order) {
+        return order;
+      }
+      return {
+        message: "no order to pickup",
+      };
+    } catch (error) {
+      console.log(error);
+    }
+  };

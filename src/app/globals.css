@@ -29,4 +29,15 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 } */
 
+@keyframes spin-multiple {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(1080deg); /* 360 x 3 = 1080 degrees */
+  }
+}
 
+.animate-spin-fast {
+  animation: spin-multiple 1.8s ease-in-out;
+}
