@@ -62,11 +62,10 @@ export default function OrdersPage() {
   useEffect(() => {
     const fetchUserDetails = async () => {
       const { user } = await getCurrentSession();
-      console.log(isRotating);
       setUser(user);
     };
     fetchUserDetails();
-  }, [isRotating]);
+  }, []);
 
 
   useEffect(() => {
@@ -74,14 +73,13 @@ export default function OrdersPage() {
       
       // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
       const orderData = await findOrderWithUserId(user?.id!);
-      console.log(isRotating);
       if (orderData && Array.isArray(orderData)) {
         setOrders(orderData);
       }
     };
     fetchOrdersData();
     
-  }, [isRotating, user?.id!]);
+  }, []);
 
   console.log(user);
   console.log(orders);
