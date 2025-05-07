@@ -45,7 +45,7 @@ type Order = {
   riderId: string | null;
 };
 
-export default function DeliveryDashboard({ riderId }: { riderId: string }) {
+export default function DeliveryDashboard({ riderId, riderName }: { riderId: string, riderName: string }) {
   const [orders, setOrders] = useState<Order[]>([]);
   const [riderOrders, setRiderOrders] = useState<Order[]>([]);
   //   const [ordersToPick, setOrdersToPick] = useState<Order[]>([])
@@ -140,7 +140,7 @@ export default function DeliveryDashboard({ riderId }: { riderId: string }) {
             <div>
               <h1 className="text-2xl font-bold">Delivery Dashboard</h1>
               <p className="text-muted-foreground">
-                Welcome back, Alex Rodriguez
+                Welcome back, {riderName}
               </p>
             </div>
             <div className="flex items-center mt-4 md:mt-0 space-x-4">

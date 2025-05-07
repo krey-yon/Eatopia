@@ -5,7 +5,7 @@ const page = async () => {
   const { user } = await getCurrentSession();
   
   // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-  return <DeliveryDashboard riderId={user?.id!} />;
+  return <DeliveryDashboard riderId={user?.id!} riderName={user?.name!}  />;
 };
 
 export default page;
