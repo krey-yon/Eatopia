@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -25,6 +25,8 @@ import { Separator } from "@/components/ui/separator";
 import { getCurrentSession } from "@/lib/cookie";
 import { ROLE } from "@/lib/definitions";
 import { findOrderWithUserId } from "@/actions/order";
+import { useQueryData } from "@/hooks/useQueryData";
+import { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
 
 type OrderItem = {
   id: string;
@@ -43,52 +45,84 @@ type Order = {
   riderId: string | null;
 };
 
+type User = {
+  address: string;
+  id: string;
+  name: string;
+  role: ROLE;
+  email: string;
+  password: string | null;
+};
+
+type OrderData = {
+  data: unknown;
+  isPending: boolean;
+  isFetched: boolean;
+  refetch: (
+    options?: RefetchOptions
+  ) => Promise<QueryObserverResult<unknown, Error>>;
+  isFetching: boolean;
+};
+
 export default function OrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [isRotating, setIsRotating] = useState(false);
 
-  const [user, setUser] = useState<{
-    address: string;
-    id: string;
-    name: string;
-    role: ROLE;
-    email: string;
-    password: string | null;
-  } | null>(null);
+  // const [user, setUser] = useState<{
+  //   address: string;
+  //   id: string;
+  //   name: string;
+  //   role: ROLE;
+  //   email: string;
+  //   password: string | null;
+  // } | null>(null);
   const [activeTab, setActiveTab] = useState("active");
 
-  console.log(activeTab)
+  console.log(activeTab);
 
+  const userData = useQueryData(["userData-for-userOrderPage"], () =>
+    getCurrentSession()
+  );
+
+  // useEffect(() => {
+  //   const fetchUserDetails = async () => {
+  //     const { user } = await getCurrentSession();
+  //     setUser(user);
+  //   };
+  //   fetchUserDetails();
+  // }, []);
+
+  const userId = userData.data as User;
+  const orderData = useQueryData(["orderData-for-userPage"], () =>
+    findOrderWithUserId(userId.id)
+  );
   useEffect(() => {
-    const fetchUserDetails = async () => {
-      const { user } = await getCurrentSession();
-      setUser(user);
-    };
-    fetchUserDetails();
-  }, []);
+    if (orderData.data !== undefined && Array.isArray(orderData.data)) {
+      setOrders(orderData.data as Order[]);
+    }
+  }, [orderData.data]);
 
+  // useEffect(() => {
+  //   const fetchOrdersData = async () => {
 
-  useEffect(() => {
-    const fetchOrdersData = async () => {
-      
-      // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-      const orderData = await findOrderWithUserId(user?.id!);
-      if (orderData && Array.isArray(orderData)) {
-        setOrders(orderData);
-      }
-    };
-    fetchOrdersData();
-    
-  }, []);
+  //     // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+  //     const orderData = await findOrderWithUserId(userData.id);
+  //     if (orderData && Array.isArray(orderData)) {
+  //       setOrders(orderData);
+  //     }
+  //   };
+  //   fetchOrdersData();
 
-  console.log(user);
+  // }, []);
+
+  // console.log(user);
   console.log(orders);
 
   const activeOrders = orders.filter(
-    (order) => order.status.toLowerCase() !== "order delivered",
+    (order) => order.status.toLowerCase() !== "order delivered"
   );
   const completedOrders = orders.filter(
-    (order) => order.status.toLowerCase() == "order delivered",
+    (order) => order.status.toLowerCase() == "order delivered"
   );
 
   return (
@@ -106,7 +140,7 @@ export default function OrdersPage() {
         <TabsList className="mb-6">
           <TabsTrigger value="active" className="flex gap-2">
             Active Orders
-            {activeOrders.length > 0 && (
+            {activeOrders?.length > 0 && (
               <Badge variant="secondary">{activeOrders.length}</Badge>
             )}
           </TabsTrigger>
@@ -129,6 +163,7 @@ export default function OrdersPage() {
             <div className="grid gap-6">
               {activeOrders.map((order) => (
                 <OrderCard
+                  orderData={orderData}
                   key={order.id}
                   order={order}
                   isRotating={isRotating}
@@ -159,6 +194,7 @@ export default function OrdersPage() {
                   order={order}
                   isRotating={isRotating}
                   setIsRotating={setIsRotating}
+                  orderData={orderData}
                 />
               ))}
             </div>
@@ -172,14 +208,17 @@ export default function OrdersPage() {
 function OrderCard({
   order,
   isRotating,
+  orderData,
   setIsRotating,
 }: {
   order: Order;
   isRotating: boolean;
+  orderData: OrderData;
   setIsRotating: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const handleClick = () => {
     setIsRotating(true);
+    orderData.refetch();
     setTimeout(() => setIsRotating(false), 1000);
   };
 
