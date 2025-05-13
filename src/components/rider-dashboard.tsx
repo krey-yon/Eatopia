@@ -27,6 +27,7 @@ import {
   markOrderAsOutForDelivery,
   riderAcceptedOrders,
 } from "@/actions/diliveryAgent";
+import { useQueryData } from "@/hooks/useQueryData";
 
 type OrderItem = {
   id: string;
@@ -45,7 +46,13 @@ type Order = {
   riderId: string | null;
 };
 
-export default function DeliveryDashboard({ riderId, riderName }: { riderId: string, riderName: string }) {
+export default function DeliveryDashboard({
+  riderId,
+  riderName,
+}: {
+  riderId: string;
+  riderName: string;
+}) {
   const [orders, setOrders] = useState<Order[]>([]);
   const [riderOrders, setRiderOrders] = useState<Order[]>([]);
   //   const [ordersToPick, setOrdersToPick] = useState<Order[]>([])
@@ -57,7 +64,7 @@ export default function DeliveryDashboard({ riderId, riderName }: { riderId: str
   function getOrdersWithReadyStatus(orders: Order[]) {
     return orders.filter(
       (order) =>
-        order.status.trim().toLowerCase() === "order ready".toLowerCase(),
+        order.status.trim().toLowerCase() === "order ready".toLowerCase()
     );
   }
 
@@ -65,14 +72,14 @@ export default function DeliveryDashboard({ riderId, riderName }: { riderId: str
     return riderOrders.filter(
       (order) =>
         order.status.trim().toLowerCase() ===
-        "order out for delivery".toLowerCase(),
+        "order out for delivery".toLowerCase()
     );
   }
 
   function getOrdersWithDeliveredStatus(riderOrders: Order[]) {
     return riderOrders.filter(
       (order) =>
-        order.status.trim().toLowerCase() === "order delivered".toLowerCase(),
+        order.status.trim().toLowerCase() === "order delivered".toLowerCase()
     );
   }
 
@@ -94,42 +101,100 @@ export default function DeliveryDashboard({ riderId, riderName }: { riderId: str
 
   const orderTimeStamp = getFormattedTimestamp();
 
-  useEffect(() => {
-    async function fetchOrders() {
-      const data = await checkForNewOrderToPickup();
-      if (data && Array.isArray(data)) {
-        setOrders(data);
-      }
-    }
-    fetchOrders();
-  }, []);
+  const NewOrdersToPickUp = useQueryData(["orders-to-pickup"], () =>
+    checkForNewOrderToPickup()
+  );
+  const orderAccepterByRider = useQueryData(["order-accepted-by-rider"], () =>
+    riderAcceptedOrders(riderId)
+  );
 
   useEffect(() => {
-    async function fetchRiderOrders() {
-      const data = await riderAcceptedOrders(riderId);
-      if (data && Array.isArray(data)) {
-        setRiderOrders(data);
-      }
+    if (NewOrdersToPickUp.data !== undefined && Array.isArray(NewOrdersToPickUp.data)) {
+      setOrders(NewOrdersToPickUp.data);
     }
-    fetchRiderOrders();
-  }, [riderId]);
+  }, [NewOrdersToPickUp.data]);
+
+  useEffect(() => {
+    if (
+      orderAccepterByRider.data !== undefined &&
+      Array.isArray(orderAccepterByRider.data)
+    ) {
+      setRiderOrders(orderAccepterByRider.data);
+    }
+  }, [orderAccepterByRider.data]);
+
+  // useEffect(() => {
+  //   async function fetchOrders() {
+  //     const data = await checkForNewOrderToPickup();
+  //     if (data && Array.isArray(data)) {
+  //       setOrders(data);
+  //     }
+  //   }
+  //   fetchOrders();
+  // }, []);
+
+  // useEffect(() => {
+  //   async function fetchRiderOrders() {
+  //     const data = await riderAcceptedOrders(riderId);
+  //     if (data && Array.isArray(data)) {
+  //       setRiderOrders(data);
+  //     }
+  //   }
+  //   fetchRiderOrders();
+  // }, [riderId]);
 
   // Handle picking up an order
-  const handlePickup = async (orderId: string) => {
-    markOrderAsOutForDelivery(orderId, riderId);
-  };
+const handlePickup = async (orderId: string) => {
+  try {
+    // First update the database
+    await markOrderAsOutForDelivery(orderId, riderId);
+    
+    // Then refetch both queries to update UI
+    await Promise.all([
+      NewOrdersToPickUp.refetch(),
+      orderAccepterByRider.refetch()
+    ]);
+    
+    // Optimistic UI update
+    setOrders(prevOrders => 
+      prevOrders.filter(order => order.id !== orderId)
+    );
+    // Optional toast notification
+    // toast.success("Order picked up successfully");
+  } catch (error) {
+    console.error("Error picking up order:", error);
+    // Optional error toast
+    // toast.error("Failed to pick up order");
+  }
+};
 
   // Handle marking an order as delivered
-  const handleDeliver = async (orderId: string) => {
-    markOrderAsDelivered(orderId);
+const handleDeliver = async (orderId: string) => {
+  try {
+    // First update the database
+    await markOrderAsDelivered(orderId);
+    
+    // Then refetch to update UI
+    await orderAccepterByRider.refetch();
+    
+    // Close dialog
     setConfirmDialogOpen(false);
-  };
+    
+    // Optional success notification
+    // toast.success("Order marked as delivered");
+  } catch (error) {
+    console.error("Error marking order as delivered:", error);
+    // Optional error notification
+    // toast.error("Failed to update order status");
+  }
+};
 
   // Open confirmation dialog
   const openConfirmDialog = (order: Order) => {
     setSelectedOrder(order);
     setConfirmDialogOpen(true);
   };
+
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -139,9 +204,7 @@ export default function DeliveryDashboard({ riderId, riderName }: { riderId: str
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <div>
               <h1 className="text-2xl font-bold">Delivery Dashboard</h1>
-              <p className="text-muted-foreground">
-                Welcome back, {riderName}
-              </p>
+              <p className="text-muted-foreground">Welcome back, {riderName}</p>
             </div>
             <div className="flex items-center mt-4 md:mt-0 space-x-4">
               <div className="flex items-center">
