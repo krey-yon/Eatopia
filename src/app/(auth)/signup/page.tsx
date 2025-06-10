@@ -14,16 +14,21 @@ const Page = () => {
   const { control, errors, onFormSubmit, register } = useSignup();
 
   return (
-    <div className={"flex items-center h-screen justify-center"}>
-      <Card className={"text-white border-gray-600 bg-black w-[30%]"}>
-        <CardHeader>
-          <CardTitle className="text-2xl">Signup</CardTitle>
-          <CardDescription>
+    <div className="flex items-center min-h-screen justify-center p-4 bg-gray-100">
+      <Card className="text-white w-full max-w-md sm:max-w-lg md:max-w-xl lg:w-[30%] border-gray-600">
+        <CardHeader className="text-center">
+          <CardTitle className="text-xl sm:text-2xl text-black">
+            Signup
+          </CardTitle>
+          <CardDescription className="text-sm sm:text-base text-black">
             Enter your details below to create your account
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <form onSubmit={onFormSubmit} className={"flex flex-col gap-y-2"}>
+        <CardContent className="px-4 sm:px-6">
+          <form
+            onSubmit={onFormSubmit}
+            className="flex flex-col gap-y-3 sm:gap-y-4"
+          >
             <FormGenerator
               inputType={"input"}
               register={register}
@@ -69,7 +74,9 @@ const Page = () => {
               placeholder={""}
               label={"Role"}
             />
-            <Button className={"bg-white text-black mt-6"}>Submit</Button>
+            <Button className="bg-white text-black mt-4 sm:mt-6 w-full py-2 sm:py-3">
+              Submit
+            </Button>
           </form>
         </CardContent>
       </Card>

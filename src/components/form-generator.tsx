@@ -73,7 +73,7 @@ const FormGenerator = ({
           <Label
             htmlFor={name}
             className={
-              "text-gray-300 hover:text-white select-none cursor-pointer flex items-center space-x-2 transition duration-150"
+              "text-gray-800 hover:text-white select-none cursor-pointer flex items-center space-x-2 transition duration-150"
             }
           >
             {label}
@@ -83,7 +83,7 @@ const FormGenerator = ({
             name={name}
             render={({ field }) => (
               <Select onValueChange={field.onChange} value={field.value}>
-                <SelectTrigger className="rounded-md border-gray-600 text-white w-full">
+                <SelectTrigger className="rounded-md border-gray-600 text-black w-full">
                   <SelectValue placeholder="Select a role" />
                 </SelectTrigger>
                 <SelectContent className={"border-gray-600 bg-black"}>
