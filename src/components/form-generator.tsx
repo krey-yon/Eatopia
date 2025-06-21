@@ -73,7 +73,7 @@ const FormGenerator = ({
           <Label
             htmlFor={name}
             className={
-              "text-gray-800 hover:text-white select-none cursor-pointer flex items-center space-x-2 transition duration-150"
+              "text-gray-800 select-none cursor-pointer flex items-center space-x-2 transition duration-150"
             }
           >
             {label}
@@ -86,21 +86,21 @@ const FormGenerator = ({
                 <SelectTrigger className="rounded-md border-gray-600 text-black w-full">
                   <SelectValue placeholder="Select a role" />
                 </SelectTrigger>
-                <SelectContent className={"border-gray-600 bg-black"}>
+                <SelectContent className={"bg-orange-50"}>
                   <SelectItem
-                    className={"text-white hover:cursor-pointer"}
+                    className={"text-black hover:cursor-pointer"}
                     value="USER"
                   >
                     USER
                   </SelectItem>
                   <SelectItem
-                    className={"text-white hover:cursor-pointer"}
+                    className={"text-black hover:cursor-pointer"}
                     value="RIDER"
                   >
                     RIDER
                   </SelectItem>
                   <SelectItem
-                    className={"text-white hover:cursor-pointer"}
+                    className={"text-black hover:cursor-pointer"}
                     value="RESTAURANT"
                   >
                     RESTAURANT

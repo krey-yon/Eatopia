@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { UserPlus, Sparkles, CheckCircle } from "lucide-react";
+import Link from "next/link";
 
 const Page = () => {
   const { control, errors, onFormSubmit, register } = useSignup();
@@ -253,7 +254,9 @@ const Page = () => {
                   <p className="text-xs text-gray-500">
                     Already have an account?{" "}
                     <span className="text-orange-600 font-medium cursor-pointer hover:underline">
+                      <Link href={"/signin"}>
                       Sign in here
+                      </Link>
                     </span>
                   </p>
                 </div>

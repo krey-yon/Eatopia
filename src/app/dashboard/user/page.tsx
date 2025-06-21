@@ -183,30 +183,35 @@ export default function Home() {
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="outline"
-                  className="h-12 px-6 border-2 border-gray-200 hover:border-orange-500 transition-all duration-300 rounded-xl"
+                  className="h-12 px-6 border-2 border-gray-200 hover:border-orange-500 hover:bg-orange-50 transition-all duration-300 rounded-xl shadow-sm hover:shadow-md"
                 >
-                  <Filter className="mr-2 h-4 w-4" />
-                  Sort: {getSortLabel(sortBy)}
+                  <Filter className="mr-2 h-4 w-4 text-gray-600" />
+                  <span className="font-medium">
+                    Sort: {getSortLabel(sortBy)}
+                  </span>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
+              <DropdownMenuContent
+                align="end"
+                className="w-52 bg-white border-0 shadow-xl rounded-xl p-2"
+              >
                 <DropdownMenuItem
                   onClick={() => setSortBy("a-z")}
-                  className="hover:bg-orange-50 cursor-pointer"
+                  className="hover:bg-orange-50 cursor-pointer rounded-lg p-3 transition-colors duration-200 flex items-center"
                 >
-                  Name (A-Z)
+                  <span className="font-medium">Name (A-Z)</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={() => setSortBy("z-a")}
-                  className="hover:bg-orange-50 cursor-pointer"
+                  className="hover:bg-orange-50 cursor-pointer rounded-lg p-3 transition-colors duration-200 flex items-center"
                 >
-                  Name (Z-A)
+                  <span className="font-medium">Name (Z-A)</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={() => setSortBy("random")}
-                  className="hover:bg-orange-50 cursor-pointer"
+                  className="hover:bg-orange-50 cursor-pointer rounded-lg p-3 transition-colors duration-200 flex items-center"
                 >
-                  Surprise Me!
+                  <span className="font-medium">Surprise Me!</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
